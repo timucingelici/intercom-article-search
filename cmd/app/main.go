@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	_ "net/http/pprof"
+	"os"
 )
 
 func main() {
@@ -132,6 +133,7 @@ func searchHandler(hd *helpdocs.Helpdocs) http.HandlerFunc {
 				component.Disabled = false
 
 				for _, item := range response.Articles {
+
 					component.Items = append(component.Items, intercom.ListResponseItem{
 						"item",
 						item.ArticleId,
@@ -142,7 +144,7 @@ func searchHandler(hd *helpdocs.Helpdocs) http.HandlerFunc {
 						0,
 						false,
 						false,
-						intercom.SheetAction{"sheet", "https://61958bdd.ngrok.io/show/" + item.ArticleId + "?region=" + region},
+						intercom.SheetAction{"sheet", os.Getenv("SERVICE_URL") + "/show/" + item.ArticleId + "?region=" + region},
 					})
 
 					log.Println("Item URL is : ", item.Url)
