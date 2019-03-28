@@ -184,6 +184,11 @@ func showArticleHandler(hd *helpdocs.Helpdocs) http.HandlerFunc {
 
 		log.Println(article)
 
+		tempVars := map[string]interface{}{
+			"Title"	: article.Article.Title,
+			"Body"	: template.HTML(article.Article.Body),
+		}
+
 		temp, err := template.New("article").Parse(`
 			<html>
 			<head>
@@ -202,7 +207,7 @@ func showArticleHandler(hd *helpdocs.Helpdocs) http.HandlerFunc {
 			log.Println("Failed to create the template : ", err)
 		}
 
-		err = temp.Execute(w, article.Article)
+		err = temp.Execute(w, tempVars)
 
 		if err != nil {
 			log.Println("Failed to print the template : ", err)
