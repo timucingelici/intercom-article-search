@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"reflect"
 )
@@ -136,6 +138,9 @@ func (hd *Helpdocs) call (method string, endpoint string, queryParams map[string
 
 	req.URL.RawQuery = q.Encode()
 
+	b, _ := httputil.DumpRequest(req, true)
+	log.Println("Request :: ", string(b))
+
 	// send the request
 	res, err := hd.client.Do(req)
 
@@ -143,9 +148,13 @@ func (hd *Helpdocs) call (method string, endpoint string, queryParams map[string
 		return err
 	}
 
+	resBody, _ := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	res.Body = ioutil.NopCloser(bytes.NewBuffer(resBody))
+
 	defer res.Body.Close()
 
-	log.Println(res.Body)
+	log.Println("Response :: ", string(resBody))
 
 	// parse response into the struct
 	err = json.NewDecoder(res.Body).Decode(response)
