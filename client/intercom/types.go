@@ -80,4 +80,3 @@ type ListResponseItem struct {
 type ConfigResults struct {
 	Results map[string]string `json:"results"`
 }
-

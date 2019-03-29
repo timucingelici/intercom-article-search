@@ -5,18 +5,17 @@ func (c *Canvas) AddComponent(component interface{}) *Canvas {
 	return c
 }
 
-
-func NewCanvas() Canvas {
-	return Canvas{
-		CanvasStatic {
+func NewCanvas() *Canvas {
+	return &Canvas{
+		CanvasStatic{
 			Content{},
 			nil,
 		},
 	}
 }
 
-func NewInput(label string, placeholder string) InputComponent {
-	return InputComponent{
+func NewInput(label string, placeholder string) *InputComponent {
+	return &InputComponent{
 		"input",
 		"query",
 		label,
@@ -24,7 +23,7 @@ func NewInput(label string, placeholder string) InputComponent {
 		"",
 		"unsaved",
 		false,
-		SubmitAction {
+		SubmitAction{
 			"submit",
 		},
 	}

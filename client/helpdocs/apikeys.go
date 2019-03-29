@@ -5,18 +5,17 @@ import (
 	"strings"
 )
 
-type apiKeys struct {}
 
-func (k apiKeys) All() map[string]string {
-	return map[string]string {
+func GetApiKeys() map[string]string {
+	return map[string]string{
 		"en-GB": os.Getenv("HELPDOCS_API_KEY_GB"),
 		"fr-FR": os.Getenv("HELPDOCS_API_KEY_FR"),
 		"en-AU": os.Getenv("HELPDOCS_API_KEY_AU"),
 	}
 }
 
-func (k apiKeys) Get(region string) string {
-	keys := k.All()
+func GetApiKeyByRegion(region string) string {
+	keys := GetApiKeys()
 	if val, ok := keys[region]; ok {
 		return val
 	}
@@ -24,12 +23,8 @@ func (k apiKeys) Get(region string) string {
 	return keys["en-GB"]
 }
 
-func (k apiKeys) GetLocale(region string) string {
-	r := k.Get(region)
-	s := strings.Split(r, "-")
+func GetLocaleByRegion(region string) string {
+	s := strings.Split(region, "-")
 	return s[0]
 }
 
-func ApiKeys() apiKeys {
-	return apiKeys{}
-}

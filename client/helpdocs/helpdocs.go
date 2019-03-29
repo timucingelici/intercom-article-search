@@ -14,9 +14,9 @@ import (
 )
 
 type Helpdocs struct {
-	baseUrl *url.URL
+	baseUrl   *url.URL
 	userAgent string
-	client *http.Client
+	client    *http.Client
 	authToken string
 }
 
@@ -50,7 +50,7 @@ func (hd *Helpdocs) SetAuthToken(token string) {
 
 func (hd *Helpdocs) newRequest(method, path string, body interface{}) (*http.Request, error) {
 
-	rel := &url.URL{Path: path }
+	rel := &url.URL{Path: path}
 	u := hd.baseUrl.ResolveReference(rel)
 
 	var buf io.ReadWriter
@@ -78,7 +78,7 @@ func (hd *Helpdocs) newRequest(method, path string, body interface{}) (*http.Req
 	req.Header.Set("User-Agent", hd.userAgent)
 
 	if hd.authToken != "" {
-		req.Header.Set("Authorization", "Bearer " + hd.authToken)
+		req.Header.Set("Authorization", "Bearer "+hd.authToken)
 	}
 
 	return req, nil
@@ -115,7 +115,7 @@ func (hd *Helpdocs) do(req *http.Request, v interface{}) (*http.Response, error)
 	return res, err
 }
 
-func (hd *Helpdocs) call (method string, endpoint string, queryParams map[string]string, response interface{}, body interface{}) error {
+func (hd *Helpdocs) call(method string, endpoint string, queryParams map[string]string, response interface{}, body interface{}) error {
 
 	// create the url
 	u := hd.baseUrl.Path + "/" + endpoint
@@ -170,9 +170,9 @@ func (hd *Helpdocs) Search(q string) (*Search, error) {
 
 	var data Search
 
-	queryStrings := map[string]string {"query": q}
+	queryStrings := map[string]string{"query": q}
 
-	if err := hd.call("GET", "search", queryStrings, &data,nil); err != nil {
+	if err := hd.call("GET", "search", queryStrings, &data, nil); err != nil {
 		return nil, err
 	}
 
@@ -185,7 +185,7 @@ func (hd *Helpdocs) GetArticle(articleId string) (*ArticleResponse, error) {
 
 	var data ArticleResponse
 
-	if err := hd.call("GET", "article/" + articleId, nil, &data, nil); err != nil {
+	if err := hd.call("GET", "article/"+articleId, nil, &data, nil); err != nil {
 		return nil, err
 	}
 
