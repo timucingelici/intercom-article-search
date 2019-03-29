@@ -5,12 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
-	"reflect"
 )
 
 type Helpdocs struct {
@@ -84,37 +81,6 @@ func (hd *Helpdocs) newRequest(method, path string, body interface{}) (*http.Req
 	return req, nil
 }
 
-func (hd *Helpdocs) do(req *http.Request, v interface{}) (*http.Response, error) {
-
-	if reflect.ValueOf(v).IsNil() {
-		return nil, fmt.Errorf("v cannot be nil")
-	}
-
-	if reflect.ValueOf(v).Kind() != reflect.Ptr {
-		return nil, fmt.Errorf("v must be a pointer type")
-	}
-
-	res, err := hd.client.Do(req)
-
-	// TODO: check the response code and if response is JSON, parse it into the struct
-	//fmt.Println("response on Do : ", res)
-	//fmt.Println("err on Do : ", err)
-
-	if err != nil {
-		return nil, err
-	}
-
-	defer res.Body.Close()
-
-	err = json.NewDecoder(res.Body).Decode(v)
-
-	if err != nil {
-		log.Println(err)
-	}
-
-	return res, err
-}
-
 func (hd *Helpdocs) call(method string, endpoint string, queryParams map[string]string, response interface{}, body interface{}) error {
 
 	// create the url
@@ -138,9 +104,6 @@ func (hd *Helpdocs) call(method string, endpoint string, queryParams map[string]
 
 	req.URL.RawQuery = q.Encode()
 
-	b, _ := httputil.DumpRequest(req, true)
-	log.Println("Request :: ", string(b))
-
 	// send the request
 	res, err := hd.client.Do(req)
 
@@ -148,13 +111,7 @@ func (hd *Helpdocs) call(method string, endpoint string, queryParams map[string]
 		return err
 	}
 
-	resBody, _ := ioutil.ReadAll(res.Body)
-	res.Body.Close()
-	res.Body = ioutil.NopCloser(bytes.NewBuffer(resBody))
-
 	defer res.Body.Close()
-
-	log.Println("Response :: ", string(resBody))
 
 	// parse response into the struct
 	err = json.NewDecoder(res.Body).Decode(response)
