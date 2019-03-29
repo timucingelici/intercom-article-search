@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"git.perkbox.io/backend-services/intercom-search/client/helpdocs"
+	"git.perkbox.io/poc/intercom-article-search/client/helpdocs"
 	"github.com/go-chi/chi"
 )
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"git.perkbox.io/backend-services/intercom-search/client/helpdocs"
-	"git.perkbox.io/backend-services/intercom-search/internal"
+	"git.perkbox.io/poc/intercom-article-search/client/helpdocs"
+	"git.perkbox.io/poc/intercom-article-search/internal"
 	"github.com/bykovme/gotrans"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"

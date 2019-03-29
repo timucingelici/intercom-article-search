@@ -1,6 +1,6 @@
 FROM golang:latest
 
-ENV PROJECT_DIR /go/src/git.perkbox.io/backend-services/intercom-search
+ENV PROJECT_DIR /go/src/git.perkbox.io/poc/intercom-article-search
 
 RUN apt update
 
