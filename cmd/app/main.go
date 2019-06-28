@@ -1,12 +1,12 @@
 package main
 
 import (
-	"git.perkbox.io/poc/intercom-article-search/client/helpdocs"
-	"git.perkbox.io/poc/intercom-article-search/internal"
 	"github.com/bykovme/gotrans"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/joho/godotenv"
+	"github.com/timucingelici/intercom-article-search/client/helpdocs"
+	"github.com/timucingelici/intercom-article-search/internal"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -41,7 +41,6 @@ func main() {
 	hd, err := helpdocs.NewClient(http.DefaultClient, "https://api.helpdocs.io/v1", "")
 
 	internal.SetUpRoutes(r, hd)
-
 
 	err = http.ListenAndServe("127.0.0.1:"+os.Getenv("SERVICE_PORT"), r)
 

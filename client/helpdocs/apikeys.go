@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 func GetApiKeys() map[string]string {
 	return map[string]string{
 		"en-GB": os.Getenv("HELPDOCS_API_KEY_GB"),
@@ -27,4 +26,3 @@ func GetLocaleByRegion(region string) string {
 	s := strings.Split(region, "-")
 	return s[0]
 }
-

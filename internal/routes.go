@@ -1,11 +1,11 @@
 package internal
 
 import (
-	"git.perkbox.io/poc/intercom-article-search/client/helpdocs"
 	"github.com/go-chi/chi"
+	"github.com/timucingelici/intercom-article-search/client/helpdocs"
 )
 
-func SetUpRoutes(r *chi.Mux, hd *helpdocs.Helpdocs){
+func SetUpRoutes(r *chi.Mux, hd *helpdocs.Helpdocs) {
 
 	// Intercom will call this first to initialise some key-value pair. We don't need to set any yet
 	// Intercom API doesn't accept an empty results array, so we're setting a `key` and `value` anyway.

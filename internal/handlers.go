@@ -2,10 +2,10 @@ package internal
 
 import (
 	"encoding/json"
-	"git.perkbox.io/poc/intercom-article-search/client/helpdocs"
-	"git.perkbox.io/poc/intercom-article-search/client/intercom"
 	"github.com/bykovme/gotrans"
 	"github.com/go-chi/chi"
+	"github.com/timucingelici/intercom-article-search/client/helpdocs"
+	"github.com/timucingelici/intercom-article-search/client/intercom"
 	"html/template"
 	"log"
 	"net/http"
